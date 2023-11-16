@@ -45,6 +45,8 @@ app.get('/', (_, res) => {
 	res.status(response.responseStatusCode).json(response);
 });
 
+app.use('/api/v1/image', require('./src/apis/routes/image.routes'));
+
 app.use((err, req, res, next) => {
 	const response = generateResponse(
 		true,
@@ -54,7 +56,7 @@ app.use((err, req, res, next) => {
 		500
 	);
 
-	logError(response.responseId, err);
+	logError(response.responseId, err, response.responseStringCode, null);
 
 	res.status(response.responseStatusCode).json(response);
 });
@@ -68,7 +70,7 @@ process.on('uncaughtException', (err) => {
 		500
 	);
 
-	logError(response.responseId, err);
+	logError(response.responseId, err, response.responseStringCode, null);
 });
 
 process.on('unhandledRejection', (err) => {
@@ -80,7 +82,7 @@ process.on('unhandledRejection', (err) => {
 		500
 	);
 
-	logError(response.responseId, err);
+	logError(response.responseId, err, response.responseStringCode, null);
 });
 
 const { PORT } = process.env;

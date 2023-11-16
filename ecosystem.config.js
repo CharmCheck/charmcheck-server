@@ -9,8 +9,7 @@ module.exports = {
 			env: {
 				NODE_ENV: 'production',
 			},
-			watch: true,
-			ignore_watch: ['node_modules', 'src/logs'],
+			watch: false,
 		},
 		{
 			name: 'charmcheck-server-dev',
@@ -20,7 +19,7 @@ module.exports = {
 				NODE_ENV: 'development',
 			},
 			watch: true,
-			ignore_watch: ['node_modules', 'src/logs'],
+			ignore_watch: ['node_modules', 'src/logs', 'src/utils/temp*'],
 		},
 	],
 };
