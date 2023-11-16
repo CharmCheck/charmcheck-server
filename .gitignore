@@ -5,3 +5,4 @@ package-lock.json
 *.logs.json
 .env.development
 .env.production
+devnotes.txt

@@ -47,6 +47,7 @@ app.get('/', (_, res) => {
 
 app.use('/api/v1/image', require('./src/apis/routes/image.routes'));
 app.use('/api/v1/review', require('./src/apis/routes/review.routes'));
+app.use('/api/v1/payment', require('./src/apis/routes/payment.routes'));
 
 app.use((err, req, res, next) => {
 	const response = generateResponse(
