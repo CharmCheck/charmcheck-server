@@ -33,17 +33,11 @@ const imageDal = () => {
 					throw new Error('Image size is greater than 1MB');
 				}
 
-				const imagePublicId = (await generateAlphaNumericString(10)).data;
+				const imagePublicId = (await generateAlphaNumericString(15)).data;
 				const imageFileName = imagePublicId + '.' + type;
 
 				await uploadObjectToS3AsBase64(
-					process.env.AWS_CHARMCHECK_PRIVATE_S3_BUCKET,
-					imageFileName,
-					base64EncodedImage
-				);
-
-				await uploadObjectToS3AsBase64(
-					process.env.AWS_CHARMCHECK_PUBLIC_S3_BUCKET,
+					process.env.AWS_CHARMCHECK_USER_PROFILES_S3_BUCKET,
 					imageFileName,
 					base64EncodedImage
 				);
