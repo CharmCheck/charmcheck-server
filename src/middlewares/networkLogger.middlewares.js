@@ -31,7 +31,9 @@ function logNetworkRequest(app) {
 		// this has to be done because the request body can be empty and empty object is not a valid json.
 
 		logger.token('req-body', (req, _res) => {
-			req.body.base64EncodedImage = null;
+			if (req.body.base64EncodedImage) {
+				req.body.base64EncodedImage = null;
+			}
 
 			return req.body
 				? Object.keys(req.body).length
