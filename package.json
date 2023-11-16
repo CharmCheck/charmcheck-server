@@ -1,0 +1,39 @@
+{
+	"name": "charmcheck-server",
+	"version": "0.0.0",
+	"description": "This is the nodejs, expressjs server for charmcheck",
+	"main": "index.js",
+	"scripts": {
+		"prod": "pm2 start ecosystem.config.js --only 'charmcheck-server-prod'",
+		"dev": "pm2 start ecosystem.config.js --only 'charmcheck-server-dev'"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charmcheck/charmcheck-server.git"
+	},
+	"keywords": [
+		"NodeJs",
+		"ExpressJs"
+	],
+	"author": "https://adityakrishna.com",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/charmcheck/charmcheck-server/issues"
+	},
+	"homepage": "https://github.com/charmcheck/charmcheck-server#readme",
+	"dependencies": {
+		"@sendgrid/mail": "^7.7.0",
+		"aws-sdk": "^2.1497.0",
+		"body-parser": "^1.20.2",
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"express-rate-limit": "^7.1.4",
+		"helmet": "^7.1.0",
+		"mongoose": "^8.0.1",
+		"morgan": "^1.10.0",
+		"nanoid": "^5.0.3",
+		"nodemon": "^3.0.1",
+		"openai": "^4.19.0"
+	}
+}
