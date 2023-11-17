@@ -12,6 +12,9 @@ const { logError } = require('./src/utils/errorLogger.utils');
 const { connectMongoDB } = require('./src/databases/mongoDb.databases');
 const { rateLimiter } = require('./src/middlewares/rateLimiter.middlewares');
 const { initializeRedis } = require('./src/databases/redis.databases');
+const {
+	initializeCronForEveryXMinutes,
+} = require('./src/utils/cronHandler.utils');
 
 const app = express();
 
@@ -34,6 +37,8 @@ app.use('/favicon.ico', (req, res) => {
 });
 
 app.use(rateLimiter);
+
+initializeCronForEveryXMinutes(process.env.CRON_INTERVAL_IN_MINUTES);
 
 app.get('/sentry-debug', () => {
 	try {
