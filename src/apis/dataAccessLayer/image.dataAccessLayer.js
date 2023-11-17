@@ -67,6 +67,15 @@ const imageDal = () => {
 
 				return response;
 			} catch (err) {
+				logError(
+					'ERROR_IN_IMAGE_UPLOAD_DAL',
+					err,
+					'ERROR_IN_IMAGE_UPLOAD_DAL',
+					{
+						base64EncodedImage,
+					}
+				);
+
 				throw err;
 			}
 		},

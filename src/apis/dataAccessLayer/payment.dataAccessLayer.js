@@ -1,9 +1,8 @@
 const { Payment } = require('../schemas/payment.schemas');
 const { Review } = require('../schemas/review.schemas');
 const { generateResponse } = require('../../utils/responseGenerator.utils');
-const {
-	pushToTailOfList,
-} = require('../../databases/redis.databases');
+const { pushToTailOfList } = require('../../databases/redis.databases');
+const { logError } = require('../../utils/errorLogger.utils');
 
 const paymentDal = () => {
 	return {
@@ -86,14 +85,6 @@ const paymentDal = () => {
 					throw new Error('Error in saving payment response');
 				}
 
-				// TODO:
-				// Make a cron that runs ever 3 minutes
-				// update review status to paid
-				// generate review
-				// update review
-				// send email to user
-				// pop from redis queue
-
 				const response = generateResponse(
 					false,
 					'Payment registered successfully.',
@@ -104,6 +95,16 @@ const paymentDal = () => {
 
 				return response;
 			} catch (err) {
+				logError(
+					'ERROR_IN_PAYMENT_CHECKOUT_DAL',
+					err,
+					'ERROR_IN_PAYMENT_CHECKOUT_DAL',
+					{
+						paymentObject,
+						lemonsqueezySignature,
+					}
+				);
+
 				throw err;
 			}
 		},

@@ -71,6 +71,16 @@ const reviewDal = () => {
 
 				return response;
 			} catch (err) {
+				logError(
+					'ERROR_IN_INITIALIZE_REVIEW_DAL',
+					err,
+					'ERROR_IN_INITIALIZE_REVIEW_DAL',
+					{
+						userEmail,
+						imageIds,
+					}
+				);
+
 				throw err;
 			}
 		},
