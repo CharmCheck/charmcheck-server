@@ -23,6 +23,8 @@
 	"homepage": "https://github.com/charmcheck/charmcheck-server#readme",
 	"dependencies": {
 		"@sendgrid/mail": "^7.7.0",
+		"@sentry/node": "^7.80.1",
+		"@sentry/profiling-node": "^1.2.6",
 		"aws-sdk": "^2.1497.0",
 		"body-parser": "^1.20.2",
 		"cors": "^2.8.5",

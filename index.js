@@ -1,6 +1,7 @@
 require('dotenv').config({
 	path: `.env.${process.env.NODE_ENV}`,
 });
+const { Sentry, initializeSentry } = require('./src/config/sentry.config');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -8,23 +9,22 @@ const bodyParser = require('body-parser');
 
 const { generateResponse } = require('./src/utils/responseGenerator.utils');
 const { logError } = require('./src/utils/errorLogger.utils');
-const {
-	logNetworkRequest,
-} = require('./src/middlewares/networkLogger.middlewares');
 const { connectMongoDB } = require('./src/databases/mongoDb.databases');
 const { rateLimiter } = require('./src/middlewares/rateLimiter.middlewares');
 const { initializeRedis } = require('./src/databases/redis.databases');
 
 const app = express();
 
-// Middlewares
+initializeSentry(app);
+
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
+
 app.use(cors());
 app.use(helmet());
 app.set('trust proxy', 1);
 app.use(bodyParser.json({ limit: '2mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-logNetworkRequest(app);
 
 connectMongoDB();
 initializeRedis();
@@ -34,6 +34,14 @@ app.use('/favicon.ico', (req, res) => {
 });
 
 app.use(rateLimiter);
+
+app.get('/sentry-debug', () => {
+	try {
+		throw new Error('My first Sentry error!');
+	} catch (err) {
+		logError('SENTRY_DEBUG', err, 'SENTRY_DEBUG', null);
+	}
+});
 
 app.get('/', (_, res) => {
 	const response = generateResponse(
@@ -50,6 +58,8 @@ app.get('/', (_, res) => {
 app.use('/api/v1/image', require('./src/apis/routes/image.routes'));
 app.use('/api/v1/review', require('./src/apis/routes/review.routes'));
 app.use('/api/v1/payment', require('./src/apis/routes/payment.routes'));
+
+app.use(Sentry.Handlers.errorHandler());
 
 app.use((err, req, res, next) => {
 	const response = generateResponse(
