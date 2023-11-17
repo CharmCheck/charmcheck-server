@@ -1,21 +1,31 @@
 const { Payment } = require('../schemas/payment.schemas');
 const { Review } = require('../schemas/review.schemas');
-const {
-	generateAlphaNumericString,
-} = require('../../utils/randomStringGenerator.utils');
 const { generateResponse } = require('../../utils/responseGenerator.utils');
+const {
+	pushToTailOfList,
+} = require('../../databases/redis.databases');
 
 const paymentDal = () => {
 	return {
 		async paymentCheckout(paymentObject, lemonsqueezySignature) {
 			try {
 				// TODO: Send email to myself for any failure in this function
-				if (
-					!lemonsqueezySignature ||
-					lemonsqueezySignature !== process.env.LEMONSQUEEZY_X_SIGNATURE_HEADER
-				) {
-					throw new Error('Invalid lemonsqueezy signature');
-				}
+				// TODO : Add lemonsqueezy signature verification
+				// if (!lemonsqueezySignature) {
+				// 	throw new Error('No lemonsqueezy signature');
+				// }
+
+				// const secret = process.env.LEMONSQUEEZY_X_SIGNATURE_HEADER;
+				// const hmac = crypto.createHmac('sha256', secret);
+				// const digest = Buffer.from(
+				// 	hmac.update(req.rawBody).digest('hex'),
+				// 	'utf8'
+				// );
+				// const signature = Buffer.from(lemonsqueezySignature, 'utf8');
+
+				// if (!crypto.timingSafeEqual(digest, signature)) {
+				// 	throw new Error('Invalid lemonsqueezy signature.');
+				// }
 
 				if (
 					!paymentObject ||
@@ -57,6 +67,14 @@ const paymentDal = () => {
 				const billingEmail = paymentObject.data.attributes.user_email;
 				const otherData = paymentObject;
 
+				await pushToTailOfList(
+					process.env.REDIS_KEY_MESSAGE_LIST,
+					JSON.stringify({
+						reviewId,
+						orderId,
+					})
+				);
+
 				const savedPaymentResponse = await Payment.create({
 					review: reviewId,
 					orderId,
@@ -69,11 +87,12 @@ const paymentDal = () => {
 				}
 
 				// TODO:
-				// save payment response
+				// Make a cron that runs ever 3 minutes
 				// update review status to paid
 				// generate review
 				// update review
 				// send email to user
+				// pop from redis queue
 
 				const response = generateResponse(
 					false,

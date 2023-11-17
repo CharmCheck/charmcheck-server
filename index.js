@@ -13,6 +13,7 @@ const {
 } = require('./src/middlewares/networkLogger.middlewares');
 const { connectMongoDB } = require('./src/databases/mongoDb.databases');
 const { rateLimiter } = require('./src/middlewares/rateLimiter.middlewares');
+const { initializeRedis } = require('./src/databases/redis.databases');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 logNetworkRequest(app);
 
 connectMongoDB();
+initializeRedis();
 
 app.use('/favicon.ico', (req, res) => {
 	res.status(204).end();

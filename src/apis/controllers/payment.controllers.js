@@ -6,7 +6,7 @@ const paymentCheckoutController = async (req, res, next) => {
 	try {
 		const paymentCheckoutResponse = await paymentDal().paymentCheckout(
 			req.body,
-			req.headers['X-Signature']
+			req.headers['x-signature']
 		);
 
 		return res
@@ -21,7 +21,10 @@ const paymentCheckoutController = async (req, res, next) => {
 			500
 		);
 
-		logError(response.responseId, err, response.responseStringCode, req.body);
+		logError(response.responseId, err, response.responseStringCode, {
+			body: req.body,
+			headers: req.headers,
+		});
 
 		return res.status(response.responseStatusCode).json(response);
 	}
