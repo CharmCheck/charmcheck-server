@@ -23,10 +23,9 @@ const reviewSchema = new Schema(
 				ref: 'Image',
 			},
 		],
-		// TODO : Add the review details schema
 		reviewDetails: {
-			type: Object,
-			default: {},
+			type: String,
+			default: null,
 		},
 		payment: {
 			type: Schema.Types.ObjectId,

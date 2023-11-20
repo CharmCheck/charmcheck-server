@@ -8,7 +8,6 @@ const paymentDal = () => {
 	return {
 		async paymentCheckout(paymentObject, lemonsqueezySignature) {
 			try {
-				// TODO: Send email to myself for any failure in this function
 				// TODO : Add lemonsqueezy signature verification
 				// if (!lemonsqueezySignature) {
 				// 	throw new Error('No lemonsqueezy signature');

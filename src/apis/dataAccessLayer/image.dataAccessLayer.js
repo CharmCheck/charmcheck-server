@@ -5,6 +5,7 @@ const {
 	generateAlphaNumericString,
 } = require('../../utils/randomStringGenerator.utils');
 const { generateResponse } = require('../../utils/responseGenerator.utils');
+const { logError } = require('../../utils/errorLogger.utils');
 
 const imageDal = () => {
 	return {
@@ -23,11 +24,13 @@ const imageDal = () => {
 				const imageInfoResponse = getImageInfo(base64EncodedImage);
 				const imageInfo = imageInfoResponse.data;
 
-				const { width, height, type, sizeInBytes } = imageInfo;
+				let { width, height, type, sizeInBytes } = imageInfo;
 
 				if (type !== 'png' && type !== 'jpg' && type !== 'jpeg') {
 					throw new Error('Invalid image type');
 				}
+
+				type = type === 'jpg' ? 'jpeg' : type;
 
 				if (sizeInBytes > 1000000) {
 					throw new Error('Image size is greater than 1MB');

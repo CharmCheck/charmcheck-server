@@ -27,13 +27,18 @@ const getObjectFromS3AsBase64 = (bucket, key) => {
 	});
 };
 
-const uploadObjectToS3AsBase64 = (bucket, key, base64) => {
+const uploadObjectToS3AsBase64 = (bucket, key, base64Image) => {
 	return new Promise((resolve, reject) => {
 		s3.upload(
 			{
 				Bucket: bucket,
 				Key: key,
-				Body: base64,
+				Body: Buffer.from(
+					base64Image.replace(/^data:image\/\w+;base64,/, ''),
+					'base64'
+				),
+				ContentEncoding: 'base64',
+				ContentType: 'image/' + key.split('.')[1],
 			},
 			(err, data) => {
 				if (err) {
