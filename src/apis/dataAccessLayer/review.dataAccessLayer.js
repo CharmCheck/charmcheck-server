@@ -207,6 +207,39 @@ const reviewDal = () => {
 				throw err;
 			}
 		},
+		async getReviewDetailsFromReviewPublicId(reviewPublicId) {
+			try {
+				if (!reviewPublicId) {
+					throw new Error('Missing required parameters');
+				}
+
+				const reviewDetails = await Review.findOne({ reviewPublicId }).populate(
+					'images'
+				);
+
+				// can be null if no review found
+				const response = generateResponse(
+					false,
+					'Review details by review public id fetched successfully',
+					reviewDetails,
+					'REVIEW_DETAILS_BY_REVIEW_PUBLIC_ID_FETCHED_SUCCESSFULLY',
+					200
+				);
+
+				return response;
+			} catch (err) {
+				logError(
+					'ERROR_FETCHING_REVIEW_DETAILS_BY_PUBLIC_ID',
+					err,
+					'ERROR_FETCHING_REVIEW_DETAILS_BY_PUBLIC_ID',
+					{
+						reviewPublicId,
+					}
+				);
+
+				throw err;
+			}
+		},
 	};
 };
 
