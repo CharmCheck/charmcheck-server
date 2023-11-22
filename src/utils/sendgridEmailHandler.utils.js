@@ -112,7 +112,7 @@ const templates = {
 		}
 		<br/>
 		<br/>
-		For any issues you can reply to this email or reach out to us on <a href="https://x.com/AdityaKG_>Twitter</a> 
+		For any issues you can reply to this email or reach out to us on <a href="https://x.com/AdityaKG_">Twitter</a> 
 		<br/>
 		<br/>
 		Regards
