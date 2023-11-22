@@ -31,7 +31,7 @@ const initiateReviewController = async (req, res, next) => {
 
 const getPublicReviewDetailsController = async (req, res, next) => {
 	try {
-		const { reviewPublicId } = req.body;
+		const { reviewPublicId } = req.params;
 
 		const publicReviewDetailsResponse =
 			await reviewDal().getReviewDetailsFromReviewPublicId(reviewPublicId);

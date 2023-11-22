@@ -8,6 +8,9 @@ const {
 const router = Router();
 
 router.post('/initiate', initiateReviewController);
-router.get('/public-review-details', getPublicReviewDetailsController);
+router.get(
+	'/public-review-details/:reviewPublicId',
+	getPublicReviewDetailsController
+);
 
 module.exports = router;
