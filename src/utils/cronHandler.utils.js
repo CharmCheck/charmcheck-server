@@ -5,9 +5,9 @@ const {
 } = require('./userProfileReviewHandler.utils');
 
 const initializeCronForEveryXMinutes = (minutes) => {
-	console.log('initializeCronForEveryXMinutes', minutes);
 	cron.schedule(`*/${minutes} * * * *`, () => {
 		userProfileReviewHandler();
+		console.log('Running cornjob', new Date());
 	});
 };
 

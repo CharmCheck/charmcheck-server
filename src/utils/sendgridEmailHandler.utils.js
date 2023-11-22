@@ -23,7 +23,7 @@ const templates = {
 		<br/>
 		Team CharmCheck
 		<br/>
-		<a href="https://CharmCheck.xyz">charmcheck.xyz</a>
+		<a href="https://CharmCheck.xyz">CharmCheck.xyz</a>
 	`,
 	}),
 	incompleteReviewEmail_to_self: (reviewId) => ({
@@ -44,7 +44,7 @@ const templates = {
 		<br/>
 		Team CharmCheck
 		<br/>
-		<a href="https://CharmCheck.xyz">charmcheck.xyz</a>
+		<a href="https://CharmCheck.xyz">CharmCheck.xyz</a>
 	`,
 	}),
 	paymentErrorEmail_to_self: (orderId) => ({
@@ -65,7 +65,7 @@ const templates = {
 		<br/>
 		Team CharmCheck
 		<br/>
-		<a href="https://CharmCheck.xyz">charmcheck.xyz</a>
+		<a href="https://CharmCheck.xyz">CharmCheck.xyz</a>
 	`,
 	}),
 	reviewGenerationErrorEmail_to_self: (reviewId, orderId) => ({
@@ -88,7 +88,7 @@ const templates = {
 		<br/>
 		Team CharmCheck
 		<br/>
-		<a href="https://CharmCheck.xyz">charmcheck.xyz</a>
+		<a href="https://CharmCheck.xyz">CharmCheck.xyz</a>
 	`,
 	}),
 	reviewGenerationSuccessEmail_to_user: (userEmail, reviewPublicId) => ({
@@ -102,23 +102,24 @@ const templates = {
 		Thanks for using CharmCheck. Your profile has been reviewed.
 		<br />
 		<br />
-		You can check the review by click on this link: <a href="${
+		You can check the review by clicking on this link: <a href="${
 			process.env.REVIEW_PAGE_FRONTEND_PREFIX + reviewPublicId
 		}">Review</a>
 		<br />
+		<br/>
 		If the above link doesn't work, copy the following link and paste it on your browser: ${
 			process.env.REVIEW_PAGE_FRONTEND_PREFIX + reviewPublicId
 		}
 		<br/>
 		<br/>
-		For any issues you can reply to this email. 
+		For any issues you can reply to this email or reach out to us on <a href="https://x.com/AdityaKG_>Twitter</a> 
 		<br/>
 		<br/>
 		Regards
 		<br/>
 		Team CharmCheck
 		<br/>
-		<a href="https://CharmCheck.xyz">charmcheck.xyz</a>
+		<a href="https://CharmCheck.xyz">CharmCheck.xyz</a>
 	`,
 	}),
 };
@@ -127,7 +128,6 @@ let isApiKeySet = false;
 
 const sendEmail = async (emailType, data) => {
 	try {
-		console.log(emailType);
 		// set api key only once for the entire app lifecycle
 		if (!isApiKeySet) {
 			sgMail.setApiKey(process.env.SENDGRID_API_KEY);
