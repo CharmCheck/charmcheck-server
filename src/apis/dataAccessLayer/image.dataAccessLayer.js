@@ -32,7 +32,11 @@ const imageDal = () => {
 
 				type = type === 'jpg' ? 'jpeg' : type;
 
-				if (sizeInBytes > 1000000) {
+				if (sizeInBytes > 1024 * 1024) {
+					logError('ERROR_IN_IMAGE_SIZE_BIG', err, 'ERROR_IN_IMAGE_SIZE_BIG', {
+						sizeInBytes,
+					});
+
 					throw new Error('Image size is greater than 1MB');
 				}
 

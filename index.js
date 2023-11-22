@@ -64,7 +64,11 @@ app.use('/api/v1/image', require('./src/apis/routes/image.routes'));
 app.use('/api/v1/review', require('./src/apis/routes/review.routes'));
 app.use('/api/v1/payment', require('./src/apis/routes/payment.routes'));
 
-app.use(Sentry.Handlers.errorHandler());
+app.use(
+	Sentry.Handlers.errorHandler({
+		shouldHandleError: (err) => err.status >= 400,
+	})
+);
 
 app.use((err, req, res, next) => {
 	const response = generateResponse(
