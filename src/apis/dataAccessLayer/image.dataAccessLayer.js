@@ -32,7 +32,10 @@ const imageDal = () => {
 
 				type = type === 'jpg' ? 'jpeg' : type;
 
-				if (sizeInBytes > 1024 * 1024) {
+				if (
+					sizeInBytes >
+					Number(process.env.ALLOWED_INDIVIDUAL_IMAGE_SIZE_IN_MB) * 1024 * 1024
+				) {
 					logError('ERROR_IN_IMAGE_SIZE_BIG', err, 'ERROR_IN_IMAGE_SIZE_BIG', {
 						sizeInBytes,
 					});

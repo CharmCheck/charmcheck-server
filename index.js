@@ -38,7 +38,7 @@ app.use('/favicon.ico', (req, res) => {
 
 app.use(rateLimiter);
 
-initializeCronForEveryXMinutes(process.env.CRON_INTERVAL_IN_MINUTES);
+initializeCronForEveryXMinutes(Number(process.env.CRON_INTERVAL_IN_MINUTES));
 
 app.get('/sentry-debug', () => {
 	try {
