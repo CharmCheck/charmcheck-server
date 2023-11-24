@@ -26,7 +26,7 @@ app.use(Sentry.Handlers.tracingHandler());
 app.use(cors());
 app.use(helmet());
 app.set('trust proxy', 1);
-app.use(bodyParser.json({ limit: '2mb' }));
+app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 connectMongoDB();
