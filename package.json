@@ -1,6 +1,6 @@
 {
 	"name": "charmcheck-server",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "This is the nodejs, expressjs server for charmcheck",
 	"main": "index.js",
 	"scripts": {
