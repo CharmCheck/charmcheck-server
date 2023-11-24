@@ -70,6 +70,7 @@ const reviewDal = () => {
 					'Review initiated successfully',
 					{
 						reviewId: reviewSaveResponse.id,
+						paymentLink: `${process.env.LEMONSQUEEZY_PAYMENT_URL_PREFIX}?checkout[custom][reviewId]=${reviewSaveResponse.id}&checkout[email]=${userEmail}`,
 					},
 					'REVIEW_INITIATED_SUCCESSFULLY',
 					200
